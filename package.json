@@ -1,0 +1,26 @@
+{
+  "name": "we-park",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nivinabbas/we-park.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nivinabbas/we-park/issues"
+  },
+  "homepage": "https://github.com/nivinabbas/we-park#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.1",
+    "nodemon": "^2.0.6",
+    "yargs": "^16.1.1"
+  }
+}
