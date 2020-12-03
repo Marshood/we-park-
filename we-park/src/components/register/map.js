@@ -183,11 +183,11 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import React, { useState, useRef, useCallback } from 'react'
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import * as parkDate from '../register/data/skateboard-parks.json';
-
-import MapGL from 'react-map-gl'
+import './map.css'
+import MapGL, { NavigationControl, GeolocateControl } from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 //00000000000000000000000000000000000000000000
-
+import logo from "../../assets/logo_tp.png"
 
 import { fromJS } from 'immutable';
 const mapStyle = fromJS({
@@ -229,11 +229,13 @@ const Example = () => {
     const [selectedParkName, setSelectedParkName] = useState(null);
 
     const [viewport, setViewport] = useState({
-        latitude: 32.794044,
-        longitude: 34.989571,
-        zoom: 8,
+        latitude: 32.9374355,// 32.794044,
+        longitude: 35.2697695,//34.989571,
+        zoom: 15,
+        // style:'mapbox://styles/mapbox/streets-v11'
+
     });
-    const styleUrl= "mapbox://styles/marshoodayoub/cki82mo14b4at19quioi8lqdz";
+    const styleUrl = 'mapbox://styles/mapbox/outdoors-v11'//"mapbox://styles/marshoodayoub/cki82mo14b4at19quioi8lqdz";
 
     const mapRef = useRef();
     const handleViewportChange = useCallback(
@@ -255,59 +257,121 @@ const Example = () => {
     );
 
     return (
-        <div style={{ height: "100vh" }}>
-            <MapGL
-                 ref={mapRef}
-                {...viewport}
-                width="100%"
-                height="100%"
-                onViewportChange={handleViewportChange}
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                points
-                onClick={(e) => { console.log(e) }}
-            >
-                  {parkDate.features.map(park => (
-          <Marker
-            key={park.properties.PARK_ID}
-            latitude={park.geometry.coordinates[1]}
-            longitude={park.geometry.coordinates[0]}
-          >
-            <button
-              className="marker-btn"
-              onClick={e => {
-                e.preventDefault();
-                setSelectedPark(park);
-              }}
-            >
-                 {park.properties.PARK_ID}
-             </button>
-          </Marker>
-        ))}
-             {selectedPark ? (
-                 alert(selectedPark.properties.NAME),
-            <Popup
-            latitude={selectedPark.geometry.coordinates[1]}
-            longitude={selectedPark.geometry.coordinates[0]}
-             onClose={() => {
-              setSelectedPark(null);
-            }}
-          >
-            <div>
-              <h2>{selectedPark.properties.NAME}</h2>
-              <p>{selectedPark.properties.DESCRIPTIO}</p>
-            </div>
-          </Popup>
-        ) : null}
+        <div   >
+            <div className="map_continaer" >
+                <div>
+                    <img className="logo__tp" src={logo} />
+                    <h2 className="App_title"> We Park</h2>
+
+                </div>
+
+                {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        console.log("Latitude is :", position.coords.latitude);
+                        console.log("Longitude is :", position.coords.longitude);
+                    })
+                }
+                <MapGL
+
+                    ref={mapRef}
+                    {...viewport}
+                    // width="100%"
+                    // height="100%"
+                    width='75vw'
+                    height='500px'
+                    onViewportChange={handleViewportChange}
+                    mapboxApiAccessToken={MAPBOX_TOKEN}
+                    mapStyle='mapbox://styles/mapbox/streets-v11'
+                    points
+                    onClick={(e) => { console.log(e) }}
+                >
+                    {parkDate.features.map(park => (
+
+
+                        <Marker
+                            key={park.properties.PARK_ID}
+                            latitude={park.geometry.coordinates[1]}
+                            longitude={park.geometry.coordinates[0]}
+                        >
+                            <button
+                                className="marker-btn button1 "
+                                onClick={e => {
+                                    e.preventDefault();
+                                    setSelectedPark(park);
+                                }}
+                            >
+                                {park.properties.NAME}
+                                <br></br>
+                                {park.properties.PARK_ID}
+                            </button>
+                        </Marker>
+
+
+                    ))}
+
+
+                    {selectedPark ? (
+                        //  alert(selectedPark.properties.NAME),
+                        setTimeout(function () { setSelectedPark(null); }, 3000),
+
+                        <Popup
+                            latitude={selectedPark.geometry.coordinates[1]}
+                            longitude={selectedPark.geometry.coordinates[0]}
+                            onClose={() => {
+                                setSelectedPark(null);
+                            }}
+                        >
+                            <div>
+                                <h2>{selectedPark.properties.NAME}</h2>
+                                <p>{selectedPark.properties.DESCRIPTIO}</p>
+                            </div>
+                        </Popup>
+                    ) : null}
+                    <GeolocateControl
+                        positionOptions={{ enableHighAccuracy: true }}
+                        trackUserLocation={true}
+                        showUserLocation={true}
+                    />
+                    <div style={{ position: 'absolute', right: 0 }}>
+                        <NavigationControl />
+                    </div>
+
+                    {getListOfParkingWithDis()}
+                    <mapbox-geolocate-control />
+
+                </MapGL>
                 <Geocoder
                     mapRef={mapRef}
                     onViewportChange={handleGeocoderViewportChange}
                     mapboxApiAccessToken={MAPBOX_TOKEN}
-                    position="top-left"
+                    position="bottom-right"
 
                 />
-            </MapGL>
+            </div>
         </div>
     );
+
+
+
+    function getListOfParkingWithDis() {
+        const lat1 = 32.9374355, lon1 = 35.2697695, lat2 = 32.794044, lon2 = 34.989571;
+
+        const R = 6371e3; // metres
+        const φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+        const φ2 = lat2 * Math.PI / 180;
+        const Δφ = (lat2 - lat1) * Math.PI / 180;
+        const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+        const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        const d = R * c/1000; // in metres
+        // d = (d / 1000);
+        console.log("dd", d);
+    }
+
 };
 
 export default Example
