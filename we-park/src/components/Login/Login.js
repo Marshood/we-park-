@@ -13,10 +13,10 @@ const Login = (props) => {
                     </div>
                     <input type="password" placeholder="Password" className="inputBox"/>
                     <br></br>
-                    <button>Login</button>
+                    <button className="button">Login</button>
                     <div>
-                    <button>Register</button>
-                    <button>Forget Password</button>
+                    <button className="button">Register</button>
+                    <button className="button">Forget Password</button>
                     </div>
                     </div>
                     </form>

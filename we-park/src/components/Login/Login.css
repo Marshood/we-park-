@@ -1,11 +1,10 @@
 .logoIcon {
   position: relative;
   margin-left: 8%;
+  margin-top: 2%;
 }
 
 .container {
-  width: 500px;
-  height: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,4 +14,13 @@
 
 .inputBox {
   border-radius: 4px;
+
+  margin: 2px;
+  margin-left: 20%;
+}
+
+.button {
+  margin: 4px;
+  border-radius: 4px;
+  margin-left: 20%;
 }
