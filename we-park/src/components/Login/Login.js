@@ -3,9 +3,9 @@ import logo from "../../assets/logo_tp.png";
 import "./Login.css"
 const Login = (props) => {
     return (    
-        <div>
+        <div className="container">
                
-                    <form className="container" >
+                    <form  >
                     <img src={logo} className="logoIcon"/>
                    <div>
                        <div>
