@@ -10,6 +10,7 @@ import {
   Link,
   useHistory
 } from "react-router-dom"
+import Profile from './components/Profile/Profile';
 function App() {
   let history = useHistory();
   return (
@@ -23,6 +24,10 @@ function App() {
        
         <Route path="/Register">
           <Register />
+        </Route>
+
+        <Route path="/Profile">
+          <Profile />
         </Route>
      
         <Route path="/">
