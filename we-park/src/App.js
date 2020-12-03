@@ -11,6 +11,7 @@ import {
   useHistory
 } from "react-router-dom"
 import Profile from './components/Profile/Profile';
+import NavBar from './components/NavBar/NavBar';
 function App() {
   let history = useHistory();
   return (
@@ -18,6 +19,10 @@ function App() {
     <body className='app'>
  
       <Switch>
+      <Route path="/SideBar">
+          <NavBar />
+        </Route>
+
       <Route path="/Login">
           <Login />
         </Route>
@@ -33,6 +38,8 @@ function App() {
         <Route path="/">
           <Example />
         </Route>
+
+      
       </Switch>
     </body>
   </Router>
