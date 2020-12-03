@@ -188,7 +188,7 @@ import MapGL, { NavigationControl, GeolocateControl } from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 //00000000000000000000000000000000000000000000
 import logo from "../../assets/logo_tp.png"
-
+import ParkingPopup from '../ParkingPopup/index'
 import { fromJS } from 'immutable';
 const mapStyle = fromJS({
     //  version: 11,
@@ -231,7 +231,7 @@ const Example = () => {
     const [viewport, setViewport] = useState({
         latitude: 32.9374355,// 32.794044,
         longitude: 35.2697695,//34.989571,
-        zoom: 15,
+        zoom: 50,
         // style:'mapbox://styles/mapbox/streets-v11'
 
     });
@@ -261,7 +261,7 @@ const Example = () => {
             <div className="map_continaer" >
                 <div>
                     <img className="logo__tp" src={logo} />
-                    <h2 className="App_title"> We Park</h2>
+                    {/* <h2 className="App_title"> We Park</h2> */}
 
                 </div>
 
@@ -275,10 +275,9 @@ const Example = () => {
 
                     ref={mapRef}
                     {...viewport}
-                    // width="100%"
-                    // height="100%"
-                    width='75vw'
-                    height='500px'
+                    width="90vw"
+                    height="70vh"
+                
                     onViewportChange={handleViewportChange}
                     mapboxApiAccessToken={MAPBOX_TOKEN}
                     mapStyle='mapbox://styles/mapbox/streets-v11'
@@ -293,11 +292,13 @@ const Example = () => {
                             latitude={park.geometry.coordinates[1]}
                             longitude={park.geometry.coordinates[0]}
                         >
-                            <button
+
+                             <button
                                 className="marker-btn button1 "
                                 onClick={e => {
                                     e.preventDefault();
                                     setSelectedPark(park);
+ 
                                 }}
                             >
                                 {park.properties.NAME}
@@ -313,7 +314,7 @@ const Example = () => {
                     {selectedPark ? (
                         //  alert(selectedPark.properties.NAME),
                         setTimeout(function () { setSelectedPark(null); }, 3000),
-
+                        
                         <Popup
                             latitude={selectedPark.geometry.coordinates[1]}
                             longitude={selectedPark.geometry.coordinates[0]}
@@ -321,12 +322,20 @@ const Example = () => {
                                 setSelectedPark(null);
                             }}
                         >
+                                                                <ParkingPopup />
+
                             <div>
                                 <h2>{selectedPark.properties.NAME}</h2>
                                 <p>{selectedPark.properties.DESCRIPTIO}</p>
                             </div>
                         </Popup>
-                    ) : null}
+                    ) : null
+                    
+                    }
+
+
+
+
                     <GeolocateControl
                         positionOptions={{ enableHighAccuracy: true }}
                         trackUserLocation={true}
