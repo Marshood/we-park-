@@ -1,24 +1,88 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import user from "../../assets/user(1).png";
-import edit from "../../assets/edit.png";
+import editIcon from "../../assets/edit.png";
 
 const Profile = (props) => {
+  const [userDetailes, setUserDetailes] = useState({
+    // we need to agree about the structure/names of this object with the backend
+    // this is a temporary solution
+    name: "Rasheed Hisham",
+    phoneNumber: "05274748246",
+    email: "Omriza5@gmail.com",
+    carNumber: "9999999",
+  });
+
+  const [isEdit, setIsEdit] = useState(true);
+
+  useEffect(() => {
+    // call the server (get method) to populate the form
+    // set the userDetailes state
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // call the server (post method)
+
+    setIsEdit(true);
+  };
+
+  const handleEditClick = () => {
+    setIsEdit(!isEdit);
+  };
+
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    setUserDetailes({ ...userDetailes, [name]: e.currentTarget.value });
+  };
+
+  const inputClasses = () => {
+    return isEdit ? "textInfos disabled" : "textInfos";
+  };
+
   return (
-    <div>
-      <form>
-        <label className="imageFile">
-          <img src={user} />
-          <input type="file" className="image" />
-        </label>
-        <button className="imgEdit">
-          <img src={edit} style={{ width: 32, height: 32 }} />
+    <div className="profileContainer">
+      <div className="imageFile">
+        <img src={user} />
+      </div>
+      <div className="editIcon" onClick={handleEditClick}>
+        <img src={editIcon} />
+      </div>
+      <form className="userProfileForm" onSubmit={handleSubmit}>
+        <div className="userDetailesInputs">
+          <input
+            className={inputClasses()}
+            onChange={handleInputChange}
+            value={userDetailes.name}
+            name="name"
+            disabled={isEdit}
+          />
+
+          <input
+            className={inputClasses()}
+            onChange={handleInputChange}
+            value={userDetailes.phoneNumber}
+            name="phoneNumber"
+            disabled={isEdit}
+          />
+          <input
+            className={inputClasses()}
+            onChange={handleInputChange}
+            value={userDetailes.email}
+            name="email"
+            disabled={isEdit}
+          />
+          <input
+            className={inputClasses()}
+            onChange={handleInputChange}
+            value={userDetailes.carNumber}
+            disabled={isEdit}
+            name="carNumber"
+          />
+        </div>
+        <button className="button" style={{ width: "100%" }} disabled={isEdit}>
+          Update
         </button>
-        <div className="textInfos"> Guest Parker </div>
-        <div className="textInfos">Test</div>
-        <div className="textInfos">04-6166182</div>
-        <div className="textInfos">test@test.com</div>
-        <div className="textInfos">99-999-99</div>
       </form>
     </div>
   );
