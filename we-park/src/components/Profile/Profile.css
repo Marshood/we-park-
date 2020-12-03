@@ -1,21 +1,43 @@
-.image {
-  /* border: 18px dimgray; */
-  cursor: pointer;
-  width: 0.1px;
-  height: 0.1px;
-  overflow: hidden;
+
+
+.profileContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding-top: 7rem;
 }
 
-.textInfos {
-  position: relative;
-  background-color: floralwhite;
-  width: 25%;
-  text-align: center;
-  border-radius: 4px;
-  margin: 8px;
+.editIcon{
+  margin-top: 2rem;
 }
 
-.imgEdit {
-  border-radius: 8px;
-  width: 4%;
+.editIcon img{
+  width:3rem;
+  height: 3rem;
 }
+
+.userProfileForm{
+  width:60%;
+  margin-top: 5rem;
+}
+
+.userDetailesInputs{
+  display: flex;
+  flex-direction: column;
+}
+
+.textInfos{
+  width:100%;
+  padding: 1rem;
+  border-radius: .8rem;
+  margin-bottom: 1rem;
+  outline: none;
+  border:none
+}
+
+.disabled{
+  color:#fff
+}
+
+
