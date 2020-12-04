@@ -129,8 +129,7 @@ const Example = () => {
                 e.preventDefault();
                 setSelectedPark(park);
               }}
-            />
-}
+            />}
           </Marker>
         ))}
         <Geocoder

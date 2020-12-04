@@ -41,7 +41,8 @@ function App() {
 
           <Route path="/">
             <Example />
-            <NavBar/>
+            <NavBar />
+
           </Route>
         </Switch>
       </body>
