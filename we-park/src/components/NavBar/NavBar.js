@@ -1,37 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Sidebar from "react-sidebar";
-
+import "./style.css";
 
 const NavBar = (props) => {
-    const [sidebarOpen,setSideBarOpen]=useState(false);
-    const namesOfComponents=["History","Profile","Setting"]
+  const [sidebarOpen, setSideBarOpen] = useState(false);
+  const namesOfComponents = ["Profile", "History", "Setting"];
 
-   const onSetSidebarOpen = (open) => {
-       setSideBarOpen(open)
-   }
-   const arrayComponents=(namesOfComponents)=>{
-      
-       
-    return  <ul>
-           {namesOfComponents.map((name,index)=>
-          
-               <li style={{listStyleType: 'none',backgroundColor:'white',padding:8,marginBottom:4,borderRadius:4}}>
-               {name}
-               </li>
-           
-           )}
-       </ul>
-   }
-    return (  <Sidebar
-        sidebar={arrayComponents(namesOfComponents)}
-        open={sidebarOpen}
-        onSetOpen={onSetSidebarOpen}
-        styles={{ sidebar: { background: "#41a6d1",display:'flex' , flexDirection:'column',padding:16} }}
-      >
-        <button onClick={() => setSideBarOpen(!sidebarOpen)}>
-          Open sidebar
-        </button>
-      </Sidebar>);
-}
- 
+  const onSetSidebarOpen = (open) => {
+    setSideBarOpen(open);
+  };
+  const arrayComponents = (namesOfComponents) => {
+    return (
+      <ul>
+        {namesOfComponents.map((name, index) => (
+          <li className="listItem">{name}</li>
+        ))}
+      </ul>
+    );
+  };
+
+  return (
+    <Sidebar
+      sidebar={arrayComponents(namesOfComponents)}
+      open={sidebarOpen}
+      onSetOpen={onSetSidebarOpen}
+      styles={{
+        sidebar: {
+          background: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          padding: 16,
+          width: "40%",
+        },
+      }}
+    >
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRBk344NpmmYG9OUrzk3wJReRsuBxonl-16w&usqp=CAU"
+        onClick={() => setSideBarOpen(true)}
+      />
+    </Sidebar>
+  );
+};
+
 export default NavBar;
