@@ -13,6 +13,7 @@ import {
 import Profile from "./components/Profile/Profile";
 import Nav from "./components/NavBar/index";
 import Timer from "./components/Timer/Timer";
+import Reservation from "./components/Reservation/Reservation";
 function App() {
   let history = useHistory();
 
@@ -36,14 +37,20 @@ function App() {
               <Profile />
             </Route>
 
+            <Route path="/Reservation">
+              <Reservation />
+            </Route>
+
             <Route path="/">
               <Example />
             </Route>
+
           </Switch>
-        </div>
-        <div className="bottomNav">
+          <div className="bottomNav">
           <Nav />
         </div>
+        </div>
+       
       </body>
     </Router>
   );
