@@ -17,6 +17,7 @@ function App() {
   let history = useHistory();
   return (
     <Router >
+      <NavBar />
     <body className='app'>
  
       <Switch>

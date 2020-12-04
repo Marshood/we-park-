@@ -60,7 +60,7 @@ const Example = () => {
   const [viewport, setViewport] = useState({
     latitude: 32.9374355, // 32.794044,
     longitude: 35.2697695, //34.989571,
-    zoom: 10,
+    zoom: 15,
     // style:'mapbox://styles/mapbox/streets-v11'
   });
   const styleUrl = "mapbox://styles/mapbox/outdoors-v11"; //"mapbox://styles/marshoodayoub/cki82mo14b4at19quioi8lqdz";
