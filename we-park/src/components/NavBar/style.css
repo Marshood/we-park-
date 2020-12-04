@@ -1,13 +1,36 @@
-img{
-    width:3rem;
-    height: 3rem;
-}
-
-.listItem{
+#navbar {
+    /* display: flex;
+    justify-content: space-between; */
+    background: black;
+    padding: 2rem;
+    height: inherit;
+  }
+  
+  #navbar .nav-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex:1;
+  }
+  
+  .inactive {
+    color: white;
     text-decoration: none;
-    list-style-type:none;
+    margin-right: 1.5em;
     font-size: 1.5rem;
-    padding: 1rem;
-    border-bottom: 1px solid black;
-    
-}
+  }
+  
+  .inactive:hover {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .active {
+    color: yellow;
+    text-decoration: none;
+  }
+  
+  .active:hover {
+    color: yellow;
+    text-decoration: none;
+  }
