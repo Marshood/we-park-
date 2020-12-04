@@ -89,11 +89,10 @@ const Example = () => {
       })}
 
       <MapGL
-
         ref={mapRef}
         {...viewport}
         width="100vw"
-        height="100vh"
+        height="90vh"
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
@@ -107,29 +106,27 @@ const Example = () => {
             key={park.properties.PARK_ID}
             latitude={park.geometry.coordinates[1]}
             longitude={park.geometry.coordinates[0]}
-          > 
-          {
-            park.properties.availablePlaces>0
-            && 
-            <img
-            className="locationIcon"
-            src={greenPin}
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedPark(park);
-            }}
-          />
-          }{
-            park.properties.availablePlaces<=0
-            &&
-             <img
-              className="locationIcon"
-              src={redPin}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedPark(park);
-              }}
-            />}
+          >
+            {park.properties.availablePlaces > 0 && (
+              <img
+                className="locationIcon"
+                src={greenPin}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedPark(park);
+                }}
+              />
+            )}
+            {park.properties.availablePlaces <= 0 && (
+              <img
+                className="locationIcon"
+                src={redPin}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedPark(park);
+                }}
+              />
+            )}
           </Marker>
         ))}
         <Geocoder
@@ -137,13 +134,12 @@ const Example = () => {
           onViewportChange={handleGeocoderViewportChange}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           position="bottom-right"
-
         />
         {selectedPark
           ? //  alert(selectedPark.properties.NAME),
-          (setTimeout(function () {
-            setSelectedPark(null);
-          }, 200000),
+            (setTimeout(function () {
+              setSelectedPark(null);
+            }, 200000),
             (
               <Popup
                 latitude={selectedPark.geometry.coordinates[1]}
@@ -152,7 +148,7 @@ const Example = () => {
                   setSelectedPark(null);
                 }}
               >
-                <ParkingPopup   selectedPark={selectedPark}/>
+                <ParkingPopup selectedPark={selectedPark} />
               </Popup>
             ))
           : null}
@@ -163,7 +159,7 @@ const Example = () => {
           showUserLocation={true}
         />
         <div style={{ position: "absolute", right: "0px" }}>
-          <NavigationControl   />
+          <NavigationControl />
         </div>
 
         {getListOfParkingWithDis()}
@@ -172,10 +168,7 @@ const Example = () => {
         {/* <div style={{ position: "absolute", right: "50%", top: "75%" }}>
             <ParkingPopup />
           </div> */}
-
       </MapGL>
-
-
     </div>
   );
 
