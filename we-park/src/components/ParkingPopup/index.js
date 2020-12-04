@@ -17,7 +17,8 @@ const ParkingPopup = (props) => {
         <p className="parkingName">{selectedPark.properties.NAME}</p>
         <br></br>
         <p className="availablePlaces">{selectedPark.properties.availablePlaces} <br></br> Parking</p>
-        <Link>
+        <Link  to="/Reservation" >
+          {/* {alert("hiii")} */}
           <img
             className="popupIcon"
             src="https://www.flaticon.com/svg/static/icons/svg/1828/1828817.svg"
