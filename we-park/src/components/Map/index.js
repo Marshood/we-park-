@@ -153,7 +153,10 @@ const Example = () => {
             ))
           : null}
 
-        <GeolocateControl
+        
+        <div style={{ position: "absolute", right: "0px" }}>
+          <NavigationControl   />
+          <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
           showUserLocation={true}
