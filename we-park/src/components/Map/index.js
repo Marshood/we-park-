@@ -1,6 +1,6 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback,useEffect  } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import * as parkDate from "../Map/data/skateboard-parks.json";
 import "./style.css";
@@ -48,12 +48,13 @@ const mapStyle = fromJS({
     },
   ],
 });
-
+ 
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFyc2hvb2RheW91YiIsImEiOiJja2k4MG81d2QwMTcxMnJvNTNrOWZwbzBmIn0.nI-lbYBSz7xNamt-QPx4mQ";
 
 const Example = () => {
+  
   const [selectedPark, setSelectedPark] = useState(null);
   const [selectedParkName, setSelectedParkName] = useState(null);
 
@@ -70,7 +71,19 @@ const Example = () => {
     (newViewport) => setViewport(newViewport),
     []
   );
-
+ 
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        setViewport({
+          latitude: position.coords.latitude, // 32.794044,
+          longitude: position.coords.longitude, //34.989571,
+          zoom: 15,
+          // style:'mapbox://styles/mapbox/streets-v11'
+        })
+      })
+    }, []);
   // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
   const handleGeocoderViewportChange = useCallback((newViewport) => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
@@ -80,13 +93,15 @@ const Example = () => {
       ...geocoderDefaultOverrides,
     });
   }, []);
+  
 
   return (
     <div className="map_continaer">
-      {navigator.geolocation.getCurrentPosition(function (position) {
+      {/* {navigator.geolocation.getCurrentPosition(function (position) {
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
-      })}
+        
+      })} */}
 
       <MapGL
         ref={mapRef}
@@ -153,10 +168,7 @@ const Example = () => {
             ))
           : null}
 
-        
-        <div style={{ position: "absolute", right: "0px" }}>
-          <NavigationControl   />
-          <GeolocateControl
+        <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
           showUserLocation={true}
