@@ -63,7 +63,7 @@ const Register = (props) => {
             
             <label  ><b>EXPIRE DATE:</b></label>
                          
-              <input name="expiry"  type="text" pattern="mm\yy" placeholder="Valid Thru"/>
+              <input name="expiry"  type="text" pattern="\d\d/\d\d" placeholder="Valid Thru" style={{width:50}}/>
               </div>
               
                         <br></br>
