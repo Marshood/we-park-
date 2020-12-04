@@ -189,7 +189,6 @@ import Geocoder from "react-map-gl-geocoder";
 import logo from "../../assets/logo_tp.png";
 import ParkingPopup from "../ParkingPopup/index";
 import { fromJS } from "immutable";
-import NavBar from "../NavBar/NavBar";
 const mapStyle = fromJS({
   //  version: 11,
   sources: {
@@ -238,7 +237,7 @@ const Example = () => {
   const [viewport, setViewport] = useState({
     latitude: 32.9374355, // 32.794044,
     longitude: 35.2697695, //34.989571,
-    zoom: 50,
+    zoom: 10,
     // style:'mapbox://styles/mapbox/streets-v11'
   });
   const styleUrl = "mapbox://styles/mapbox/outdoors-v11"; //"mapbox://styles/marshoodayoub/cki82mo14b4at19quioi8lqdz";
@@ -260,93 +259,77 @@ const Example = () => {
   }, []);
 
   return (
-    <div>
-      <NavBar />
-      <div className="map_continaer">
-        <div>
-          <img className="logo__tp" src={logo} />
-          {/* <h2 className="App_title"> We Park</h2> */}
-        </div>
+    <div className="map_continaer">
+      {navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      })}
+      <MapGL
+        ref={mapRef}
+        {...viewport}
+        width="100vw"
+        height="100vh"
+        onViewportChange={handleViewportChange}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        points
+        onClick={(e) => {
+          console.log(e);
+        }}
+      >
+        {parkDate.features.map((park) => (
+          <Marker
+            key={park.properties.PARK_ID}
+            latitude={park.geometry.coordinates[1]}
+            longitude={park.geometry.coordinates[0]}
+          >
+            <img
+              className="locationIcon"
+              src="https://www.flaticon.com/svg/vstatic/svg/684/684908.svg?token=exp=1607078169~hmac=d6c420c4eca04e97b5740cd3cf9dfd25"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedPark(park);
+              }}
+            />
+          </Marker>
+        ))}
 
-        {navigator.geolocation.getCurrentPosition(function (position) {
-          console.log("Latitude is :", position.coords.latitude);
-          console.log("Longitude is :", position.coords.longitude);
-        })}
-        <MapGL
-          ref={mapRef}
-          {...viewport}
-          width="90vw"
-          height="70vh"
-          onViewportChange={handleViewportChange}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
-          points
-          onClick={(e) => {
-            console.log(e);
-          }}
-        >
-          {parkDate.features.map((park) => (
-            <Marker
-              key={park.properties.PARK_ID}
-              latitude={park.geometry.coordinates[1]}
-              longitude={park.geometry.coordinates[0]}
-            >
-              <button
-                className="marker-btn button1 "
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedPark(park);
+        {selectedPark
+          ? //  alert(selectedPark.properties.NAME),
+            (setTimeout(function () {
+              setSelectedPark(null);
+            }, 200000),
+            (
+              <Popup
+                latitude={selectedPark.geometry.coordinates[1]}
+                longitude={selectedPark.geometry.coordinates[0]}
+                onClose={() => {
+                  setSelectedPark(null);
                 }}
               >
-                {park.properties.NAME}
-                <br></br>
-                {park.properties.PARK_ID}
-              </button>
-            </Marker>
-          ))}
+                <ParkingPopup />
+              </Popup>
+            ))
+          : null}
 
-          {selectedPark
-            ? //  alert(selectedPark.properties.NAME),
-              (setTimeout(function () {
-                setSelectedPark(null);
-              }, 3000),
-              (
-                <Popup
-                  latitude={selectedPark.geometry.coordinates[1]}
-                  longitude={selectedPark.geometry.coordinates[0]}
-                  onClose={() => {
-                    setSelectedPark(null);
-                  }}
-                >
-                  <ParkingPopup />
-
-                  <div>
-                    <h2>{selectedPark.properties.NAME}</h2>
-                    <p>{selectedPark.properties.DESCRIPTIO}</p>
-                  </div>
-                </Popup>
-              ))
-            : null}
-
-          <GeolocateControl
-            positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation={true}
-            showUserLocation={true}
-          />
-          <div style={{ position: "absolute", right: 0 }}>
-            <NavigationControl />
-          </div>
-
-          {getListOfParkingWithDis()}
-          <mapbox-geolocate-control />
-        </MapGL>
-        <Geocoder
-          mapRef={mapRef}
-          onViewportChange={handleGeocoderViewportChange}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-          position="bottom-right"
+        <GeolocateControl
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+          showUserLocation={true}
         />
-      </div>
+        <div style={{ position: "absolute", right: 0 }}>
+          <NavigationControl />
+        </div>
+
+        {getListOfParkingWithDis()}
+        <mapbox-geolocate-control />
+      </MapGL>
+      <Geocoder
+        mapRef={mapRef}
+        onViewportChange={handleGeocoderViewportChange}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+        position="bottom-right"
+      />
     </div>
   );
 
