@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Sidebar from "react-sidebar";
 import "./style.css";
 
@@ -13,7 +14,7 @@ const NavBar = (props) => {
     return (
       <ul>
         {namesOfComponents.map((name, index) => (
-          <li className="listItem">{name}</li>
+          <li className="listItem"> <Link to={name}>{name}</Link></li>
         ))}
       </ul>
     );
@@ -31,6 +32,8 @@ const NavBar = (props) => {
           flexDirection: "column",
           padding: 16,
           width: "40%",
+          marginTop:8,
+         
         },
       }}
     >

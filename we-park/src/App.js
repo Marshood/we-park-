@@ -15,16 +15,19 @@ import NavBar from './components/NavBar/NavBar';
 import Timer from "./components/Timer/Timer"
 function App() {
   let history = useHistory();
+  
   return (
     <Router >
-      <NavBar />
+      
     <body className='app'>
+    <NavBar />
  
       <Switch>
       <Route path="/Timer">
           <Timer />
         </Route>
       <Route path="/SideBar">
+          
           <NavBar />
         </Route>
 
@@ -38,6 +41,7 @@ function App() {
 
           <Route path="/">
             <Example />
+            <NavBar/>
           </Route>
         </Switch>
       </body>
