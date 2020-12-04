@@ -8,18 +8,24 @@ import {
   Switch,
   Route,
   Link,
-  useHistory,
-} from "react-router-dom";
-import Profile from "./components/Profile/Profile";
+  useHistory
+} from "react-router-dom"
+import Profile from './components/Profile/Profile';
+import NavBar from './components/NavBar/NavBar';
+import Timer from "./components/Timer/Timer"
 function App() {
   let history = useHistory();
   return (
-    <Router>
-      <body className="app">
-        <Switch>
-          <Route path="/Login">
-            <Login />
-          </Route>
+    <Router >
+    <body className='app'>
+ 
+      <Switch>
+      <Route path="/Timer">
+          <Timer />
+        </Route>
+      <Route path="/SideBar">
+          <NavBar />
+        </Route>
 
           <Route path="/Register">
             <Register />
