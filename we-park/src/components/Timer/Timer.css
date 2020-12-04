@@ -50,3 +50,14 @@ body {
 .small {
   font-size: 18px !important;
 }
+
+.timerCount {
+  border: solid 2px rgb(10, 94, 143);
+  border-radius: 50%;
+  height: 8%;
+  width: auto;
+  padding-top: 15px;
+  align-items: center;
+  font-size: large;
+  color: red;
+}
