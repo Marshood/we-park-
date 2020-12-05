@@ -17,9 +17,7 @@ const renderer = ({ minutes, seconds, completed,autoStart}) => {
       <div >
       <div className="timerCount">
        {minutes}:{seconds}
-       
       </div>
-     
       </div>
     );
   }
@@ -28,9 +26,11 @@ const renderer = ({ minutes, seconds, completed,autoStart}) => {
 
 const Timer = (props) => {
   
-  return (<Countdown date={Date.now() + 900000} autoStart={false} renderer={renderer}  />
-  
-  
+  return (
+  <div>
+  <Countdown date={Date.now() + 900000} autoStart={true} renderer={renderer}  />
+  <button className="button">  Cancel</button>
+  </div>
   );
 }
  
