@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import * as parkDate from "../Map/data/skateboard-parks.json";
+import Reservation from "../Reservation/Reservation";
  
 const ParkingPopup = (props) => {
   const { selectedPark } = props;

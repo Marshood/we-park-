@@ -24,9 +24,9 @@ const NavBar =()=> {
                 exact
                 className="inactive"
                 activeClassName="active"
-                to="/history"
+                to="/Reservation"
               >
-                History
+                Reservation
               </NavLink>
               <NavLink
                 className="inactive"
