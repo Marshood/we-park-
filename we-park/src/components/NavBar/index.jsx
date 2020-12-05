@@ -12,7 +12,7 @@ const NavBar =()=> {
     
       <nav id="navbar">
         <div className="nav-items">
-          <NavLink exact className="inactive" activeClassName="active" to="/">
+          <NavLink exact className="inactive" activeClassName="active" to="/home">
           <img src={homeIcon}/>
           </NavLink>
               <NavLink
