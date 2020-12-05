@@ -7,12 +7,12 @@ import ParkingPopup from '../ParkingPopup/index';
 
 
 const Reservation = (props) => {
-    const { selectedPark } = props; 
+    const selectedPark = props; 
     const [value, onChange] = useState('10:00');
-
+console.log(selectedPark);
     return  (<div>
-        console.log(hiii);
-       { alert("hehehe")}
+       
+ 
    <ParkingPopup selectedPark={selectedPark} />
   <TimePicker/>
       </div>

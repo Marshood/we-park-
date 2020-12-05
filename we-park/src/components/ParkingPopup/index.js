@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import * as parkDate from "../Map/data/skateboard-parks.json";
+import Reservation from "../Reservation/Reservation";
  
 const ParkingPopup = (props) => {
   const { selectedPark } = props;
@@ -19,9 +20,10 @@ const ParkingPopup = (props) => {
         <p className="availablePlaces">{selectedPark.properties.availablePlaces} <br></br> Parking</p>
 
         <Link to={{
-          pathname: "/Profile",
-          state: { selectedPark: selectedPark }
+          pathname: "/Reservation",
+          selectedPark: selectedPark 
         }}>
+         
           <img
             className="popupIcon"
             src="https://www.flaticon.com/svg/static/icons/svg/1828/1828817.svg"

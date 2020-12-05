@@ -21,7 +21,11 @@ function App() {
     <Router>
       <body className="app">
         <div className="appContent">
+        <div className="bottomNav">
+          <Nav />
+        </div>
           <Switch>
+         
             <Route path="/Timer">
               <Timer />
             </Route>
@@ -40,15 +44,13 @@ function App() {
             <Route path="/Reservation">
               <Reservation />
             </Route>
-
+           
+        
             <Route path="/">
               <Example />
             </Route>
-
-          </Switch>
-          <div className="bottomNav">
-          <Nav />
-        </div>
+              </Switch>
+          
         </div>
        
       </body>
