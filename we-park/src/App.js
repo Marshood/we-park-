@@ -20,12 +20,11 @@ function App() {
   return (
     <Router>
       <body className="app">
-        <div className="appContent">
         <div className="bottomNav">
           <Nav />
         </div>
+        <div className="appContent">
           <Switch>
-         
             <Route path="/Timer">
               <Timer />
             </Route>
@@ -44,15 +43,12 @@ function App() {
             <Route path="/Reservation">
               <Reservation />
             </Route>
-           
-        
+
             <Route path="/">
               <Example />
             </Route>
-              </Switch>
-          
+          </Switch>
         </div>
-       
       </body>
     </Router>
   );

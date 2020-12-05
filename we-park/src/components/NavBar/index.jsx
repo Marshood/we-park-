@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+import homeIcon from "../../assets/homeIcon.png"
+import profileIcon from "../../assets/profileIcon.png"
+import reserveIcon from "../../assets/reserveIcon.png"
+import settingsIcon from "../../assets/settingsIcon.png"
 import "./style.css";
 
 const NavBar =()=> {
@@ -9,7 +13,7 @@ const NavBar =()=> {
       <nav id="navbar">
         <div className="nav-items">
           <NavLink exact className="inactive" activeClassName="active" to="/">
-           Home
+          <img src={homeIcon}/>
           </NavLink>
               <NavLink
                 className="inactive"
@@ -17,7 +21,7 @@ const NavBar =()=> {
                 activeClassName="active"
                 to="/profile"
               >
-                Profile
+                <img src={profileIcon}/>
               </NavLink>
 
               <NavLink
@@ -26,7 +30,7 @@ const NavBar =()=> {
                 activeClassName="active"
                 to="/Reservation"
               >
-                Reservation
+                    <img src={reserveIcon}/>
               </NavLink>
               <NavLink
                 className="inactive"
@@ -34,7 +38,7 @@ const NavBar =()=> {
                 activeClassName="active"
                 to="/settings"
               >
-               Settings
+                   <img src={settingsIcon}/>
               </NavLink>      
         </div>
       </nav>
