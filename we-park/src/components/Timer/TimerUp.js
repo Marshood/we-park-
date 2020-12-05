@@ -6,6 +6,9 @@ function setZeros(i) {
 }
 
 class TimerUp extends Component {
+  componentDidMount() {
+    this.startTimer();
+  }
   constructor() {
     super();
 
@@ -15,7 +18,7 @@ class TimerUp extends Component {
     this.state = {
       s: "00",
       m: "00",
-      h: "00"
+      h: "00",
     };
 
     //start timer
@@ -40,7 +43,7 @@ class TimerUp extends Component {
         this.setState({
           s: setZeros(ss),
           m: setZeros(mm),
-          h: setZeros(hh)
+          h: setZeros(hh),
         });
       }, 1000);
     }; // start timer ends
@@ -52,7 +55,7 @@ class TimerUp extends Component {
       this.setState({
         s: "00",
         m: "00",
-        h: "00"
+        h: "00",
       });
       clearInterval(intrvl);
     }; // stop timer ends
@@ -62,12 +65,6 @@ class TimerUp extends Component {
     let { s, m, h } = this.state;
     return (
       <div className="counter">
-        <div className="start" onClick={this.startTimer}>
-          <h1>START</h1>
-        </div>
-        <div className="stop" onClick={this.stopTimer}>
-          <h1>STOP</h1>
-        </div>
         <h3 className="count-timer">{h + " : " + m + " : " + s}</h3>
       </div>
     );

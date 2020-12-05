@@ -1,0 +1,27 @@
+
+.startTime{
+    padding-top: 3rem;
+}
+.reservationContainer{
+    height: 100vh;
+    background-color: #fff;
+}
+
+.startHour{
+    display: inline-block;
+    margin-top: 0;
+}
+
+.hour{
+    display: inline-block;
+}
+
+.reservationCounter{
+    font-size: 2rem;
+}
+
+.message{
+    margin-top: 3rem;
+    font-size: 2rem;
+    color:green
+}
