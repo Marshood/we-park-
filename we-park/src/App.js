@@ -14,6 +14,7 @@ import Profile from "./components/Profile/Profile";
 import Nav from "./components/NavBar/index";
 import Timer from "./components/Timer/Timer";
 import Reservation from "./components/Reservation/Reservation";
+import TimerUp from "./components/Timer/TimerUp";
 function App() {
   let history = useHistory();
 
@@ -27,6 +28,9 @@ function App() {
           <Switch>
             <Route path="/Timer">
               <Timer />
+            </Route>
+            <Route path="/TimerUp">
+              <TimerUp />
             </Route>
             {/* <Route path="/SideBar">
               <NavBar />
