@@ -50,13 +50,17 @@ const mapStyle = fromJS({
     },
   ],
 });
- 
+const FAKE_USER_POSITION = {
+  latitude: 32.9374355,
+  longitude: 35.2697695
+};
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFyc2hvb2RheW91YiIsImEiOiJja2k4MG81d2QwMTcxMnJvNTNrOWZwbzBmIn0.nI-lbYBSz7xNamt-QPx4mQ";
 
 const Example = () => {
-  
+  const [userPosition, setUserPosition] = useState(null);
+
   const [selectedPark, setSelectedPark] = useState(null);
   const [selectedParkName, setSelectedParkName] = useState(null);
 
@@ -86,6 +90,29 @@ const Example = () => {
         })
       })
     }, []);
+    useEffect(() => {
+      getUserPosition()
+    }, []);
+    function getUserPosition() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setViewport({...viewport, latitude, longitude});
+            setUserPosition({latitude, longitude});
+          },
+          (failure) => {
+            if (failure.message.startsWith('Only secure origins are allowed')) {
+              // Secure Origin issue.
+              console.log(failure.message);
+            }
+            setViewport({...viewport, ...FAKE_USER_POSITION});
+            setUserPosition({...FAKE_USER_POSITION});
+          },
+          {timeout: 10000}
+        );
+      }
+    }
   // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
   const handleGeocoderViewportChange = useCallback((newViewport) => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
