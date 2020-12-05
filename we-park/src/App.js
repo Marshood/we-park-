@@ -13,28 +13,27 @@ import {
 import Profile from "./components/Profile/Profile";
 import Nav from "./components/NavBar/index";
 import Timer from "./components/Timer/Timer";
-import Reservation from "./components/Reservation/Reservation";
+import ReservationDetails from "./components/ReservationDetails/ReservationDetails";
+import Reservation from "./components/Reservation";
 function App() {
   let history = useHistory();
 
   return (
     <Router>
       <body className="app">
-        <div className="appContent">
         <div className="bottomNav">
           <Nav />
         </div>
+        <div className="appContent">
           <Switch>
-         
             <Route path="/Timer">
               <Timer />
             </Route>
-            {/* <Route path="/SideBar">
-              <NavBar />
-            </Route> */}
-
             <Route path="/Register">
               <Register />
+            </Route>
+            <Route path="/home">
+              <Example />
             </Route>
 
             <Route path="/Profile">
@@ -44,15 +43,15 @@ function App() {
             <Route path="/Reservation">
               <Reservation />
             </Route>
-           
-        
-            <Route path="/">
-              <Example />
+            <Route path="/ReservationDetails">
+              <ReservationDetails />
             </Route>
-              </Switch>
-          
+
+            <Route path="/">
+              <Login />
+            </Route>
+          </Switch>
         </div>
-       
       </body>
     </Router>
   );

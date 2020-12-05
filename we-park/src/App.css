@@ -12,12 +12,15 @@ body{
  
 }
 
+.app{
+  display: flex;
+  flex-direction: column;
+}
 
 .appContent{
   height: 90vh;
 }
 
 .bottomNav{
-  
   height: 10vh;
 }

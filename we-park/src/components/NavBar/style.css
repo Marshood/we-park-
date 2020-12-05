@@ -1,7 +1,5 @@
 #navbar {
-    /* display: flex;
-    justify-content: space-between; */
-    background: black;
+    background: #48aaac;
     padding: 2rem;
     height: inherit;
   }
@@ -26,11 +24,10 @@
   }
   
   .active {
-    color: yellow;
     text-decoration: none;
+    font-size: 1.5rem;
   }
   
   .active:hover {
-    color: yellow;
     text-decoration: none;
   }

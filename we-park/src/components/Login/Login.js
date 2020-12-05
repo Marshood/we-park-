@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo_tp.png";
+import { useHistory } from "react-router-dom";
 import "./Login.css";
 const Login = (props) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
+
+  let history = useHistory();
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -38,10 +41,17 @@ const Login = (props) => {
           />
         </div>
 
-        <button className="button">Login</button>
+        <button className="button" onClick={() => history.push("/home")}>
+          Login
+        </button>
 
         <div className="textButtonsBox">
-          <button className="textButton">Register</button>
+          <button
+            className="textButton"
+            onClick={() => history.push("/register")}
+          >
+            Register
+          </button>
           <button className="textButton">Forget Password</button>
         </div>
       </form>
