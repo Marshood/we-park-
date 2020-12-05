@@ -9,6 +9,8 @@ import Geocoder from "react-map-gl-geocoder";
 import logo from "../../assets/logo_tp.png";
 import redPin from "../../assets/RedPin.svg";
 import greenPin from "../../assets/GreenPin.svg";
+import currentLocation from "../../assets/currentLocation.svg";
+import close from "../../assets/close.svg";
 
 import ParkingPopup from "../ParkingPopup/index";
 import { fromJS } from "immutable";
@@ -48,13 +50,17 @@ const mapStyle = fromJS({
     },
   ],
 });
- 
+const FAKE_USER_POSITION = {
+  latitude: 32.9374355,
+  longitude: 35.2697695
+};
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFyc2hvb2RheW91YiIsImEiOiJja2k4MG81d2QwMTcxMnJvNTNrOWZwbzBmIn0.nI-lbYBSz7xNamt-QPx4mQ";
 
 const Example = () => {
-  
+  const [userPosition, setUserPosition] = useState(null);
+
   const [selectedPark, setSelectedPark] = useState(null);
   const [selectedParkName, setSelectedParkName] = useState(null);
 
@@ -84,6 +90,29 @@ const Example = () => {
         })
       })
     }, []);
+    useEffect(() => {
+      getUserPosition()
+    }, []);
+    function getUserPosition() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setViewport({...viewport, latitude, longitude});
+            setUserPosition({latitude, longitude});
+          },
+          (failure) => {
+            if (failure.message.startsWith('Only secure origins are allowed')) {
+              // Secure Origin issue.
+              console.log(failure.message);
+            }
+            setViewport({...viewport, ...FAKE_USER_POSITION});
+            setUserPosition({...FAKE_USER_POSITION});
+          },
+          {timeout: 10000}
+        );
+      }
+    }
   // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
   const handleGeocoderViewportChange = useCallback((newViewport) => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
@@ -93,7 +122,29 @@ const Example = () => {
       ...geocoderDefaultOverrides,
     });
   }, []);
-  
+
+  function getUserPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setViewport({ ...viewport, latitude, longitude });
+          setUserPosition({ latitude, longitude });
+        },
+        (failure) => {
+          if (failure.message.startsWith('Only secure origins are allowed')) {
+            // Secure Origin issue.
+            console.log(failure.message);
+          }
+          setViewport({ ...viewport, ...FAKE_USER_POSITION });
+          setUserPosition({ ...FAKE_USER_POSITION });
+        },
+        { timeout: 10000 }
+      );
+    }
+  }
+
+  //
 
   return (
     <div className="map_continaer">
@@ -112,10 +163,25 @@ const Example = () => {
         mapboxApiAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         points
+
         onClick={(e) => {
           console.log(e);
         }}
       >
+        {userPosition !== null ? (
+          <Marker
+            latitude={userPosition.latitude}
+            longitude={userPosition.longitude}
+            offsetLeft={-19}
+            offsetTop={-37}
+          >
+            <img
+              className="locationIcon"
+              src={currentLocation}
+
+            />
+          </Marker>
+        ) : null}
         {parkDate.features.map((park) => (
           <Marker
             key={park.properties.PARK_ID}
@@ -152,17 +218,20 @@ const Example = () => {
         />
         {selectedPark
           ? //  alert(selectedPark.properties.NAME),
-            (setTimeout(function () {
-              setSelectedPark(null);
-            }, 200000),
+          (setTimeout(function () {
+            setSelectedPark(null);
+          }, 200000),
             (
               <Popup
                 latitude={selectedPark.geometry.coordinates[1]}
                 longitude={selectedPark.geometry.coordinates[0]}
-                onClose={() => {
-                  setSelectedPark(null);
-                }}
-              >
+              // onClose={() => {
+              //   setSelectedPark(null);
+              // }}
+
+              >   <button onClick={() => {
+                setSelectedPark(null)
+              }}><img src={close} style={{ width: "5vw", height: "3vh" }} /></button>
                 <ParkingPopup selectedPark={selectedPark} />
               </Popup>
             ))
@@ -177,7 +246,6 @@ const Example = () => {
           <NavigationControl />
         </div>
 
-        {getListOfParkingWithDis()}
         <mapbox-geolocate-control />
 
         {/* <div style={{ position: "absolute", right: "50%", top: "75%" }}>
